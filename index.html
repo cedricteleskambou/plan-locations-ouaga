@@ -98,7 +98,7 @@ details a{color:var(--ink);text-underline-offset:3px}
 .fb svg{width:18px;height:18px;fill:currentColor}
 .help{font:600 1rem/1 var(--cond);letter-spacing:.03em;text-transform:uppercase;padding:10px 14px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
 .help:hover{background:var(--ink);color:var(--sheet)}
-.guide{border:0;padding:0;margin:auto;width:min(100vw,520px);max-height:100dvh;background:var(--sheet);color:var(--ink);border:2px solid var(--ink)}
+.guide{overflow-y:auto;overscroll-behavior:contain;border:0;padding:0;margin:auto;width:min(100vw,520px);max-height:100dvh;background:var(--sheet);color:var(--ink);border:2px solid var(--ink)}
 .guide::backdrop{background:rgba(18,40,74,.55)}
 .guide .g-in{padding:calc(22px + env(safe-area-inset-top)) 22px calc(20px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:18px}
 .guide h2{margin:0;font:700 2rem/1 var(--cond);text-transform:uppercase}
@@ -153,7 +153,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
   <span id="count" aria-live="polite"></span>
 </nav>
 <dialog class="guide" id="guide" aria-labelledby="g-t"><div class="g-in">
-<h2 id="g-t">Trouver un logement en cinq gestes</h2>
+<h2 id="g-t" tabindex="-1" autofocus>Trouver un logement en cinq gestes</h2>
 <p>Tu cherches un logement à louer à Ouagadougou, et les annonces sont éparpillées dans des dizaines de groupes Facebook. Alors, comment trouver vite la bonne maison ?</p>
 <p>Cette page rassemble 36 annonces publiées sur Facebook ces 5 derniers jours, et elle garde seulement les logements qui ont la douche et les toilettes à l'intérieur. Une <strong>chambre-salon</strong> est un logement d'une chambre et d'un salon, jusqu'à 60 000 F par mois. Une <strong>2 chambres-salon</strong> a deux chambres et un salon, jusqu'à 100 000 F par mois.</p>
 <ol>
@@ -219,7 +219,7 @@ body{padding-bottom:env(safe-area-inset-bottom)}
 <details><summary>Annonce complète</summary><p>🏠🏠 UNE CHAMBRE SALON DISPONIBLE À #MARKOUSIS A PROXIMITÉ DU COMMISSARIAT <br><br>🛑COUR COMMUNE NOUVELLE CONSTITUTION <br><br>📌UNE CHAMBRE SPACIEUSE <br>📌 DOUCHE WC INTERNES <br>📌 CARROLER PLAFONNÉ VENTILÉ <br>📌 CUISINE interne <br><br>💵💵 #LOYER 35000f<br><br>📠 WATHSAP 72894081<br><br>❤️LES FRAIS DE VISITE 2000F</p></details>
 </article><article class="lot" style="view-transition-name:lot6" data-n="2" data-prix="90000" data-ts="1794395088" data-kit="1">
 <div class="gal" data-total="5"><div class="track" tabindex="0" aria-label="Photos du logement"><img src="photos/1736213404558433_1.jpg" alt="Photo 1 sur 5" loading="lazy" decoding="async" data-k="1"><img src="photos/1736213404558433_2.jpg" alt="Photo 2 sur 5" loading="lazy" decoding="async" data-k="2"><img src="photos/1736213404558433_3.jpg" alt="Photo 3 sur 5" loading="lazy" decoding="async" data-k="3"><img src="photos/1736213404558433_4.jpg" alt="Photo 4 sur 5" loading="lazy" decoding="async" data-k="4"><img src="photos/1736213404558433_5.jpg" alt="Photo 5 sur 5" loading="lazy" decoding="async" data-k="5"></div><button class="gp" aria-label="Photo précédente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="gn" aria-label="Photo suivante"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><span class="cnt"><b>1</b> / 5</span></div>
-<header><span class="no">Lot 06</span><span class="rep">5 annonces</span><time datetime="2026-11-11T11:04:48" title="Publié le 11/11 à 11h04">à l'instant</time><span class="stamp">Nouveau</span></header>
+<header><span class="no">Lot 06</span><span class="rep">5 annonces</span><time datetime="2026-11-11T11:04:48" title="Publié le 11/11 à 11h04">il y a 1 h</time><span class="stamp">Nouveau</span></header>
 <h2>Balkuy, à proximité de la mosquée turque</h2>
 <p class="rent"><b>90 000</b> F / mois</p>
 <ul class="feats"><li class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>Douche + WC internes</li><li class="ok"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3 3 7-7"/></svg>Cuisine interne</li><li>Carrelé</li><li>Plafonné</li><li>Ventilé</li></ul>
@@ -547,7 +547,8 @@ document.querySelectorAll('.seg').forEach(g=>g.addEventListener('click',e=>{cons
 kit.addEventListener('change',apply);apply();
 const gd=document.getElementById('guide');document.getElementById('gogo').onclick=()=>{gd.close();try{localStorage.setItem('guide-vu','1')}catch(e){}};
 document.getElementById('helpbtn').onclick=()=>gd.showModal();
-try{if(!localStorage.getItem('guide-vu'))gd.showModal()}catch(e){gd.showModal()}
+const op=()=>{gd.showModal();gd.scrollTop=0;gd.querySelector('h2').focus({preventScroll:true})};document.getElementById('helpbtn').onclick=op;
+try{if(!localStorage.getItem('guide-vu'))op()}catch(e){op()}
 const lb=document.createElement('dialog');lb.className='lb';
 lb.innerHTML='<div class="bar"><span></span><button class="lbp" aria-label="Photo précédente">'+`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>`+'</button><button class="lbn" aria-label="Photo suivante">'+`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>`+'</button><button class="lbx" aria-label="Fermer"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div><div class="track"></div>';
 document.body.append(lb);
