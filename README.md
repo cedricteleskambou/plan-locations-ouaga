@@ -17,7 +17,7 @@ Chaque annonce répond à l'un de ces deux cas :
 
 - **Douche interne** : la douche et les toilettes se trouvent à l'intérieur du logement.
 - **Cuisine interne** : c'est un bonus. Les logements avec cuisine sont affichés en premier, et les autres restent dans la liste.
-- **Date** : l'annonce a été publiée sur Facebook dans les 5 derniers jours.
+- **Date** : l'annonce a été publiée sur Facebook dans les 3 derniers jours.
 - **Zone** : tout Ouagadougou.
 - **Contact** : chaque annonce affiche au moins un numéro de téléphone.
 
